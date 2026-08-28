@@ -1,98 +1,145 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+} from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <View style={styles.container}>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      {/* Encabezado */}
+      <View style={styles.encabezado}>
+        <Text style={styles.titulo}>
+          VOTACIONES ELECTORALES
+        </Text>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+        <Text style={styles.subtitulo}>
+          Sistema de Votación
+        </Text>
+      </View>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      {/* Contenido principal */}
+      <View style={styles.contenido}>
+
+        <Text style={styles.bienvenida}>
+          Bienvenido
+        </Text>
+
+        <Text style={styles.descripcion}>
+          Participa en el proceso electoral
+          de manera segura y sencilla.
+        </Text>
+
+        {/* Imagen */}
+        <Image
+          source={{
+            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpQiCeEAcsV2z0eVK0EYAeLk7_O8VwIEOQjPtjO5qWEbHNstxaUPyWEDE&s=10',
+          }}
+          style={styles.imagenVotaciones}
+        />
+
+        {/* Botón */}
+        <Pressable
+          style={styles.boton}
+          onPress={() => alert('¡Botón presionado!')}
+        >
+          <Text style={styles.textoBoton}>
+            INICIAR VOTACIÓN
+          </Text>
+        </Pressable>
+
+      </View>
+
+      {/* Pie de página */}
+      <Text style={styles.pie}>
+        Ingeniería de Sistemas
+      </Text>
+
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: '#F2F6FC',
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
+
+  encabezado: {
+    backgroundColor: '#174EA6',
+    paddingTop: 55,
+    paddingBottom: 25,
+    paddingHorizontal: 20,
     alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
+
+  titulo: {
+    color: '#FFFFFF',
+    fontSize: 24,
+    fontWeight: 'bold',
     textAlign: 'center',
   },
-  code: {
-    textTransform: 'uppercase',
+
+  subtitulo: {
+    color: '#D9E8FF',
+    fontSize: 16,
+    marginTop: 6,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  contenido: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 30,
   },
+
+  bienvenida: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#17365D',
+    marginBottom: 10,
+  },
+
+  descripcion: {
+    fontSize: 16,
+    color: '#52616B',
+    textAlign: 'center',
+    lineHeight: 24,
+    marginBottom: 20,
+  },
+
+  imagenVotaciones: {
+    width: 220,
+    height: 180,
+    resizeMode: 'contain',
+    marginBottom: 25,
+  },
+
+  boton: {
+    backgroundColor: '#174EA6',
+    paddingVertical: 15,
+    paddingHorizontal: 35,
+    borderRadius: 12,
+    elevation: 5,
+  },
+
+  textoBoton: {
+    color: '#FFFFFF',
+    fontSize: 17,
+    fontWeight: 'bold',
+  },
+
+  pie: {
+    textAlign: 'center',
+    color: '#7A8793',
+    fontSize: 14,
+    paddingBottom: 20,
+  },
+
 });
