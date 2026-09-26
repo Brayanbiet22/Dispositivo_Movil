@@ -16,6 +16,7 @@ import {
 
 import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
+import type { Href } from 'expo-router';
 
 export default function Inicio() {
 
@@ -86,6 +87,17 @@ export default function Inicio() {
         >
           <Text style={styles.botonEmoji}>📍</Text>
           <Text style={styles.botonTexto}>Contacto</Text>
+        </Pressable>
+
+        <Pressable
+        style={({ pressed }) => [
+          styles.boton,
+          pressed && styles.botonPresionado,
+        ]}
+        onPress={() => router.push('/registros' as Href)}
+        >
+          <Text style={styles.botonEmoji}>📋</Text>
+          <Text style={styles.botonTexto}>Registros</Text>
         </Pressable>
 
       </View>

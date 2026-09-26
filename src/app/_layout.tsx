@@ -29,6 +29,10 @@ export default function RootLayout() {
           name="contacto"
           options={{ title: 'Contacto' }}
         />
+        <Stack.Screen
+        name="registros"
+        options={{ title: "Votantes registrados" }}
+        />
       </Stack>
     </>
   );
